@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     float movementX;
     float movementY;
-    [SerializeField] float speed = 6;
+    [SerializeField] float speed = 150; //W SPEED
 
     [SerializeField] Rigidbody2D rb; //remember default is private, serializefield will keep it private but accessible in the unity editor
 
@@ -33,11 +33,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {//As opposed to regular Update(), game physics will not be time depend on frames cough cough Touhou
         float XmoveDistance = movementX * speed * Time.fixedDeltaTime;
-        //float YmoveDistance = movementY * speed * Time.fixedDeltaTime;
+        float YmoveDistance = movementY * speed * Time.fixedDeltaTime;
 
-        //transform.position = new Vector2(transform.position.x + XmoveDistance, transform.position.y + YmoveDistance);
+        transform.position = new Vector2(transform.position.x + XmoveDistance, transform.position.y + YmoveDistance);
         //rb.linearVelocity = new Vector2 (40*XmoveDistance, 40*YmoveDistance);
-        rb.linearVelocityX = XmoveDistance;
+        //rb.linearVelocityX = XmoveDistance;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
