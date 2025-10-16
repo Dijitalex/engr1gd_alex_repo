@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     float movementY;
     bool jumping = false;
     bool touchGround;
-    bool facingRight = true;
+    //bool facingRight = true;
     private Animator animator;
     [SerializeField] float speed = 150; //W SPEED
     [SerializeField] float jump = 10f;
@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("walking", movementX != 0f);
         // if (movementX < 0 && facingRight)
         // {
         //     transform.localScale.x *= -1;
@@ -37,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
         movementX = v.x;
         movementY = v.y;
+        animator.SetBool("walking", !Mathf.Approximately(v.x, 0));
 
 
         Debug.Log(v);
@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(jump * UnityEngine.Vector2.up, ForceMode2D.Impulse);
             jumping = false;
+            animator.SetTrigger("jump");
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)
