@@ -9,8 +9,9 @@ public class PlayerController : MonoBehaviour
     float movementY;
     bool jumping = false;
     bool touchGround;
-    //bool facingRight = true;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    public int score;
     [SerializeField] float speed = 150; //W SPEED
     [SerializeField] float jump = 10f;
     [SerializeField] Rigidbody2D rb; //remember default is private, serializefield will keep it private but accessible in the unity editor
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -37,9 +39,10 @@ public class PlayerController : MonoBehaviour
         movementX = v.x;
         movementY = v.y;
         animator.SetBool("walking", !Mathf.Approximately(v.x, 0));
-
-
-        Debug.Log(v);
+        if (rb.linearVelocityX != 0)
+        {
+            spriteRenderer.flipX = rb.linearVelocityX < 0f; //effectively acts as a boolean
+        }
 
     }
 
@@ -84,5 +87,9 @@ public class PlayerController : MonoBehaviour
             touchGround = false;
         }
     }
-    
+    public void AddCoin(int value)
+    {
+        score += value;
+        Debug.Log(value);
+    }
 }
