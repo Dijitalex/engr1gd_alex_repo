@@ -1,4 +1,5 @@
 using System.Numerics;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jump = 10f;
     [SerializeField] Rigidbody2D rb; //remember default is private, serializefield will keep it private but accessible in the unity editor
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] TextMeshProUGUI coinText;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -91,5 +93,7 @@ public class PlayerController : MonoBehaviour
     {
         score += value;
         Debug.Log(value);
+
+        coinText.text = "Coins: " + score.ToString();
     }
 }
